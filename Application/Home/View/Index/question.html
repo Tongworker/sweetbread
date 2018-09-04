@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html >
+<head id="ctl00_Head1">
+  <title>
+  答卷
+</title>
+<link rel="stylesheet" type="text/css" href="__ASSETS__/css/question.css">
+<link rel="stylesheet" href="__ASSETS__/css/font-awesome.min.css">
+<style type="text/css">
+  .selected{
+    color:#00FF00;
+    background-color: black;
+
+  }
+  .success{
+    color:red;
+    background-color: orange;    
+  }
+</style>
+</head>
+<body style="">  
+    <canvas id='c'></canvas>
+    <div id="divNotRun" style="height:100px; text-align:center; display:none;"></div>
+    <div id="jqContent" class="" style="text-align: left; ">
+        <div id="headerCss" style="overflow-x: hidden; overflow-y: hidden; ">
+            <div id="ctl00_header"><label style='border:none;'></label></div>
+        </div>
+        <div id="mainCss">
+            <div id="mainInner">
+                <div id="box">
+   <div class="survey" style="margin:0px auto;">
+    <div id="ctl00_ContentPlaceHolder1_JQ1_divHead" class="surveyhead" style="border: 0px;">
+       <div id="ctl00_ContentPlaceHolder1_JQ1_h1Name" style="position:relative;">
+        <h1 id="ctl00_ContentPlaceHolder1_JQ1_lblQuestionnaireName">Follow your heart</h1>
+     </div>
+    <div style="clear: both;">
+    </div>
+    <div id="ctl00_ContentPlaceHolder1_JQ1_divDec" class="surveydescription">
+        <span id="ctl00_ContentPlaceHolder1_JQ1_lblQuestionnaireDescription" style="vertical-align: middle;">这套试题是我心中的问题,答案是我心中的答案。</span>
+    </div>
+    <div style="clear: both;">
+    </div>
+</div>
+<div class="surveycontent" style="margin-bottom: 8%;">
+    <div>
+      <!-- 问题循环体 start-->
+      <volist name="list" id="vo">
+        <fieldset class='fieldset' >
+          <div class='div_question'>
+            <div class='div_title_question_all'>
+              <div class='div_topic_question' >
+              {$key + 1}.
+              </div>
+              <div class='div_title_question'>
+                {$vo.title}（{$vo.score}分）
+              </div>
+          </div>
+          <div class='div_table_radio_question'>
+            <div class='div_table_clear_top'></div>
+            <ul class='ulradiocheck' id="option{$vo.id}">
+              <volist name="vo.option" id="op">
+                <!-- <li style='width:32.333%;' class="radio" data-id ="{$vo.id}" data-val="{$key+1}"> -->
+                <li style='width:20%;' class="radio" data-id ="{$vo.id}" data-val="{$key+1}">
+                  <label for='q1_1' style="display: inline-block;">
+                  {$key + 1}.{$op}
+                  </label>
+                </li>  
+              </volist>
+              
+              
+              <div style='clear:both;'>
+                
+              </div>
+            </ul>
+          </div>
+        </div>
+      </fieldset>
+      </volist>
+      
+    <!-- 问题循环体 end-->
+    <a href="javascript:;" class="btn" id="sub" style="background-color: red;margin-bottom: 50px;width: 100px;height: 50px;font-size: 25px;line-height: 50px;" data-examId="{$exam_id}">
+      交卷
+    </a>
+  </div>
+  
+</div>
+<div style="margin-bottom: 8%;">
+  <ul style="margin: 0;
+    padding: 0;    text-align: center;list-style: none;list-style-type: none;" id="link">
+      <a href="{:U('Index/index')}" title="去主页" style="font-size: 25px;padding-left: 20px;"><i class="fa fa-home"></i></a></li>
+      <a href="{:U('Index/tpp')}" title="去看看仝朋朋" style="font-size: 25px;padding-left: 20px;"><i class="fa fa-retweet"></i></a></li>
+  </ul>
+</div>
+</body>  
+<script src="__ASSETS__/js/jquery.min.js"></script>
+<script src="__ASSETS__/js/index.js"></script> 
+<script src="__ASSETS__/layer/layer/layer.js"></script>
+<script type="text/javascript">
+  //询问框
+
+  layer.confirm('做这套题需要走心,你是否还愿意做?', {
+    btn: ['我愿意','后悔了'] //按钮
+  }, function(){
+    layer.msg('请开始答题', {icon: 1});
+    $('#c').css('display', 'none');
+  }, function(){
+    layer.msg('谢谢你的好意', {
+      time: 20000, //20s后自动关闭
+      btn: ['离开这里', '马上离开']
+    });
+    location.href = "{:U('Index/index')}";
+  });
+</script> 
+<script type="text/javascript">
+  // 关于题
+  // 选中
+  var obj = new Array();
+  var isSub = 0; //交卷全局状态
+  $('.radio').click(function() {
+    if (isSub != 0) {
+      layer.msg('你已经交卷，刷新下就能重新做了', {icon: 6});
+      return false;
+    }
+    var that = $(this);
+    var val = that.attr('data-val');//当前选中的答案
+    var qid = that.attr('data-id');//当前选中的题id
+
+    if (!$.trim(qid) || !$.trim(val) ) {
+      layer.msg('实在抱歉,改题出的有问题。', {icon: 2});
+      return false;
+    }
+    if (obj.length > 0) {
+      for (var i = 0; i < obj.length; i++) {
+        if (obj[i].split(':')[0] == qid) {
+          removeByValue(obj, obj[i]);  
+          break;
+        }
+      }
+      obj.push(qid+':'+val);
+    } else {
+      obj = [qid+':'+val];
+    }
+    $("#option"+qid).find("li[class='selected']").removeClass("selected");
+    that.prop('class', 'selected');
+
+  });
+
+  // 清楚之前的选中的答案
+  function removeByValue(arr, val) {
+    for(var i=0; i<arr.length; i++) {
+      if(arr[i] == val) {
+        arr.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  // 交卷
+  $('#sub').on('click', function(){
+      if (isSub != 0) {
+        layer.msg('你已经交卷，刷新下就能重新做了', {icon: 6});
+        return false;
+      }
+      if (obj.length <= 0) {
+        layer.msg('程序没检测到你做的题。', {icon: 2});
+        return false;       
+      } 
+      isSub = 1;
+      var that = $(this);
+      
+      var exam_id = that.attr('data-examId');
+      $.ajax({  
+        type : "POST", 
+        url : "{:U('Index/getExamQuestion')}",
+        async:false,
+        data : {  
+            "exam_id" : exam_id  
+        },
+        success : function(result) {
+          if(result.code != 1){
+            layer.msg(result.msg, {icon: 2});
+            return false;               
+          }
+          window.sessionStorage.setItem("result", JSON.stringify(result.data));      
+        }  
+      });
+      var score = 0;
+      var totalScore = 0;
+      var result = JSON.parse(window.sessionStorage.getItem("result"));//这套题
+      for (var i = 0; i < result.length; i++) {
+        totalScore += parseInt(result[i]['score']);
+        $("#option"+result[i]['id']).find("li").eq(parseInt(result[i]['answer']) - 1 ).addClass("success");
+        for (var j = 0; j < obj.length; j++) {
+            
+          if (result[i]['id'] == obj[j].split(':')[0] ) {
+            if (obj[j].split(':')[1] == result[i]['answer']) {
+              $("#option"+result[i]['id']).find("li[class='selected']").removeClass("selected");
+              
+              $("#option"+result[i]['id']).find("li").eq(parseInt(result[i]['answer']) - 1 ).append("√");
+              score += parseInt(result[i]['score']);
+            } else {
+              // $("#option"+result[i]['id']).find("li").eq(parseInt(result[i]['answer']) - 1 ).addClass("success");
+              // $("#option"+result[i]['id']).find("li").eq(parseInt(result[i]['answer']) - 1 ).append("√");
+              $("#option"+result[i]['id']).find("li[class='selected']").append("×");
+
+            }
+          }
+        }
+      }
+
+      // console.log(score);
+      var str = '我们努力互相了解。call me.';
+      if (parseInt(parseInt(totalScore) - parseInt(score)) <= 20 ) {
+        str = '得分好高，快联系我。我们增进一下感情。';
+      }
+      var html = '<div><h1 style="font-size:25px;">总得分：'+score+'分 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;满分：'+totalScore+'分</h1><p style="font-size:20px;">'+str+'</p><img src ="__IMAGES__/tpp/tpp_11.png" style="height:320px;"/></div>';
+      layer.open({
+        type: 1,
+        // skin: 'layui-layer-rim', //加上边框
+        area: ['650px', '500px'], //宽高
+        content: html
+      });  
+  } );
+</script>
+<!-- qq分享单个人 -->
+    <script type="text/javascript">
+(function(){
+var p = {
+url:location.href, /*获取URL，可加上来自分享到QQ标识，方便统计*/
+desc:'', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+title:'', /*分享标题(可选)*/
+summary:'', /*分享摘要(可选)*/
+pics:'', /*分享图片(可选)*/
+flash: '', /*视频地址(可选)*/
+site:'', /*分享来源(可选) 如：QQ分享*/
+style:'101',
+width:96,
+height:24
+};
+var s = [];
+for(var i in p){
+s.push(i + '=' + encodeURIComponent(p[i]||''));
+}
+var link = '<a style="font-size: 25px;padding-left: 20px;" href="http://connect.qq.com/widget/shareqq/index.html?'+s.join('&')+' target="_blank" title="qq分享个人" ><i class="fa fa-qq"></i></a>';
+$('#link').append(link);
+})();
+</script>
+<script src="http://connect.qq.com/widget/loader/loader.js" widget="shareqq" charset="utf-8"></script>
+
+<!-- qq分享单个人 end-->
+
+<!-- qq分享空间 -->
+<script type="text/javascript">
+(function(){
+var p = {
+url:location.href,
+showcount:'1',/*是否显示分享总数,显示：'1'，不显示：'0' */
+desc:'',/*默认分享理由(可选)*/
+summary:'',/*分享摘要(可选)*/
+title:'',/*分享标题(可选)*/
+site:'',/*分享来源 如：腾讯网(可选)*/
+pics:'', /*分享图片的路径(可选)*/
+style:'203',
+width:98,
+height:22
+};
+var s = [];
+for(var i in p){
+s.push(i + '=' + encodeURIComponent(p[i]||''));
+}
+var link = '<a version="1.0" style="font-size: 25px;padding-left: 20px;" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?'+s.join('&')+' target="_blank" title="qq分享空间"><i class="fa fa-send"></i></a>';
+$('#link').append(link);
+// document.write(['<a version="1.0" class="qzOpenerDiv" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?',s.join('&'),'" target="_blank">分享</a>'].join(''));
+})();
+</script>
+<script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
+
+<!-- qq分享空间 end -->
+</html>

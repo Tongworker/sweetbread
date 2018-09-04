@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>W-{$groupData.title}-数据</title>
+    <style type="text/css">
+      table,table tr th, table tr td { border:1px solid #0094ff; }
+      td{color:black;}
+      th{font-weight: bold;color: red}
+    </style>
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <block name="include"><include file="Base:baseLeft" /></block>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Excel <small>详细数据</small><code>右边这个是个搜索框，可以搜索文件标题跟文件名称啊，别傻不拉几的不用,如果误删除了，给仝朋朋联系，他能给你恢复过来，收费！</code></h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <form action="{:U('Excel/index')}" method="GET">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search for..." name="content" value="{$content}">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+
+              <div class="clearfix"></div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target="#addModal">添加数据</button></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>编号</th>
+                          <th>姓名</th>
+                          <th>入职离职</th>
+                          <th>部门</th>
+                          <th>职级</th>
+                          <th>应出勤</th>
+                          <th>计薪天数</th>
+                          <th>基本工资（标准）</th>
+                          <th>基本工资（应发工资）</th>
+                          <th>绩效提成</th>
+                          <th>加班费</th>
+                          <th>高温补</th>
+                          <th>话补</th>
+                          <th>印管</th>
+                          <th>社保差额</th>
+                          <th>其他补</th>
+                          <th>应发合计</th>
+                          <th>社保</th>
+                          <th>请事假（天数）</th>
+                          <th>请事假（扣款）</th>
+                          <th>迟到次数</th>
+                          <th>迟到扣款</th>
+                          <th>缺卡次数</th>
+                          <th>缺卡扣款</th>
+                          <th>旷工天数</th>
+                          <th>旷工扣款</th>
+                          <th>社保差额</th>
+                          <th>应扣合计</th>
+                          <th>实发工资</th>
+                          <th>签字</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <empty name="list">
+                          <tr>
+                            <td colspan="33">无数据</td>
+                          </tr>
+                        <else/>
+                          <volist name="list" id="vo">
+                            <tr>
+                              <th scope="row">{$vo.A}</th>
+                              <td>{$vo.B}</td>
+                              <td>{$vo.C}</td>
+                              <td>{$vo.D}</td>
+                              <td>{$vo.E}</td>
+                              <td>{$vo.F}</td>
+                              <td>{$vo.G}</td>
+                              <td>{$vo.H}</td>
+                              <td>{$vo.I}</td>
+                              <td>{$vo.J}</td>
+                              <td>{$vo.K}</td>
+                              <td>{$vo.L}</td>
+                              <td>{$vo.M}</td>
+                              <td>{$vo.N}</td>
+                              <td>{$vo.O}</td>
+                              <td>{$vo.P}</td>
+                              <td>{$vo.Q}</td>
+                              <td>{$vo.R}</td>
+                              <td>{$vo.S}</td>
+                              <td>{$vo.T}</td>
+                              <td>{$vo.U}</td>
+                              <td>{$vo.V}</td>
+                              <td>{$vo.W}</td>
+                              <td>{$vo.X}</td>
+                              <td>{$vo.Y}</td>
+                              <td>{$vo.Z}</td>
+                              <td>{$vo.AA}</td>
+                              <td>{$vo.AB}</td>
+                              <td>{$vo.AC}</td>
+                              <td>{$vo.AD}</td>
+                              <td>
+                              	<!-- <a href="javascript:;" class="btn btn-round btn-default editm" data-id="{$vo.id}" data-title="{$vo.title}" data-filename="{$vo.filename}">编辑Excel</a> -->
+                                <!-- <a href="{:U('Excel/delExcel',['group_id' => $vo['id']])}" class="btn btn-round btn-danger">删除数据</a> -->
+                                啥都没做呢
+                              </td>
+                            </tr>
+                          </volist>
+                        </empty>
+                      </tbody>
+                    </table>
+                    
+                    <div class="Pagination">{$show}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+    <!-- 添加excel数据 start（Modal） -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+            <h4 class="modal-title">
+              添加Excel
+            </h4>
+          </div>
+          <form  class="form-horizontal form-label-left" action="{:U('Excel/addExcelData')}" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">B姓名
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="B" class="form-control col-md-7 col-xs-12">
+                  <input type="hidden" name="excel_group_id" class="form-control col-md-7 col-xs-12" value="{$groupData.id}">
+
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">C入职离职
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="C" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">D部门
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="D" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">E职级
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="E" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">F应出勤
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="F" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">G计薪天数
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="G" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">H应发金额->基本工资（标准）
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="H" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">I应发金额->基本工资（应发工资）
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="I" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">J应发金额->绩效提成
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="J" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">K应发金额->加班费
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="K" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">L应发金额->高温补
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="L" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">M应发金额->话补
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="M" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N应发金额->印管
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="N" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">O应发金额->社保差额
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="O" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">P应发金额->其他补
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="P" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Q应发金额->应发合计
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="Q" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">R应扣金额->代缴费用->社保
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="R" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">S应扣金额->请事假->天数
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="S" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">T应扣金额->请事假->扣款
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="T" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">U应扣金额->迟到->次数
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="U" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">V应扣金额->迟到->扣款
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="V" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">W应扣金额->缺卡->次数
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="W" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">X应扣金额->缺卡->扣款
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="X" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Y应扣金额->旷工->天数
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="Y" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Z应扣金额->旷工->扣款
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="Z" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">AA应扣金额->社保差额
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="AA" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">AB应扣金额->应扣合计(元)
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="AB" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">AC实发工资
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="AC" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">AD签字
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="AD" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+              </button>
+              <button type="submit" class="btn btn-primary">添加</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 添加excel数据 end -->
+
+    <!-- 编辑Excel数据 start（Modal） 没做-->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+            <h4 class="modal-title">
+              编辑Excel
+            </h4>
+          </div>
+          <form  class="form-horizontal form-label-left" action="{:U('Excel/editExcel')}" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Excel标题
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="title" class="form-control col-md-7 col-xs-12">
+                  <input type="hidden" name="group_id" value="">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Excel文件名称
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="filename" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+              </button>
+              <button type="submit" class="btn btn-primary">编辑</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 编辑Excel数据 end -->
+
+    <!-- jQuery -->
+    <script src="__VENDORS__/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="__VENDORS__/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="__VENDORS__/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="__VENDORS__/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="__VENDORS__/iCheck/icheck.min.js"></script>
+
+    <script src="__ASSETS__/layer/layer/layer.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="__BUILD__/js/custom.js"></script>
+    <script type="text/javascript">
+      // 编辑Excel展示modal
+      $('.editm').click(function() {
+      	var that = $(this);
+      	var group_id = that.attr('data-id');
+      	var title = that.attr('data-title');
+      	var filename = that.attr('data-filename');
+
+      	if (!$.trim(group_id) ) {
+      		layer.msg('这个Excel有问题，唯一标识不存在，不能编辑', {icon: 7});
+          	return false;
+      	}
+      	if (!$.trim(title) ) {
+      		layer.msg('这个Excel有问题，标题不存在，不能编辑', {icon: 7});
+          	return false;
+      	}
+      	if (!$.trim(filename) ) {
+      		layer.msg('这个Excel有问题，文件名不存在，不能编辑', {icon: 7});
+          	return false;
+      	}
+      	$('#editModal').find('input[name="title"]').val(title);
+      	$('#editModal').find('input[name="filename"]').val(filename);
+      	$('#editModal').find('input[name="group_id"]').val(group_id);
+
+      	$('#editModal').modal('show');
+
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>404</title>
+	<link rel="stylesheet" href="__VENDORS__/error/style.css">
+	<style type="text/css">
+		a{ text-decoration:none} 
+	</style>
+</head>
+<body>
+	<div><h1>{$content}</h1></div>
+	<nav class="shelf">
+	  <a class="book home-page" href="{:U('Index/index')}">后台管理</a>
+	  <a class="book about-us" href="{:U('/Home/Index/index')}">前台展示</a>
+	  <a class="book contact prev" href="javascript:void(0);" >返回上一页</a>
+	  <a class="book faq" href="{:U('/Home/Index/TIME')}">TIME</a>
+	  
+	  <span class="book not-found"></span>
+	 
+	  <span class="door left"></span>
+	  <span class="door right"></span>
+	</nav>
+	<h1>Error 404</h1>
+	<p>糟糕，您要去的地方不在我的世界里。。。</p>
+	<span id="second_show" style="display: inline-block;"></span><span>要炸了</span>
+	<input type="hidden" name="" id="url" value="{$url}">
+	
+</body>
+<script src="__VENDORS__/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+	// 返回上一页
+	$('.prev').click(function() {
+		window.history.back();
+	});
+
+	var intDiff = parseInt(3);//倒计时总秒数量
+	function timer(intDiff){
+
+	    var timer = window.setInterval(function(){
+	    var day=0,
+	        hour=0,
+	        minute=0,
+	        second=0;//时间默认值        
+	    if(intDiff > 0){
+	        day = Math.floor(intDiff / (60 * 60 * 24));
+	        hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+	        minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+	        second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+	    } else {
+	    	var url = $('#url').val();
+	    	console.log(url);
+	    	if (url == 'callback') {
+	    		window.history.back();	
+	    	} else {
+	    		window.clearInterval(timer);
+	    		window.location.href = 'http://'+window.location.host+'/Admin/'+url;	
+
+	    	}
+	    	
+	    }
+	    if (minute <= 9) minute = '0' + minute;
+	    if (second <= 9) second = '0' + second;
+	    $('#second_show').html('<s></s>'+second+'秒');
+	    intDiff--;
+	    }, 1000);
+	} 
+	$(function(){
+	    timer(intDiff);
+	}); 
+</script>
+</html>

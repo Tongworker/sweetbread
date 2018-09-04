@@ -1,0 +1,228 @@
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!DOCTYPE html>
+<html lang="en-US">
+    <!--<![endif]-->
+
+    <head>
+        <meta charset="utf-8">
+        <title>
+            好看的页面
+        </title><!-- Behavioral Meta Data -->
+
+        <link href="favicon.png" rel="shortcut icon" type="image/png">
+
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        
+        <!-- CSS -->
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,900' rel='stylesheet' type='text/css'><!-- Styles -->
+        <link href="__ASSETS__/css/loader.css" rel="stylesheet" type="text/css">
+        <link href="__ASSETS__/css/normalize.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="__ASSETS__/css/font-awesome.min.css">
+        <link href="__ASSETS__/css/style.css" rel="stylesheet" type="text/css">
+        <!--[if lt IE 9]>
+            <link rel="stylesheet" type="text/css" href="css/ie.css" />
+        <![endif]-->
+        <!-- Javascript -->
+
+        <script src="__ASSETS__/js/jquery.js"></script>
+        <script src="__ASSETS__/js/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <div class="preloader">
+            <div class="loading">
+                <h2>
+                    Loading...
+                </h2>
+                <span class="progress"></span>
+            </div>
+        </div>
+
+        <div class="wrapper">
+            <ul class="scene unselectable" data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15" id="scene">
+                <li class="layer" data-depth="0.00">
+                </li>
+                <!-- BG -->
+
+                <li class="layer" data-depth="0.10">
+                    <div class="background">
+                    </div>
+                </li>
+
+                <!-- Hero -->
+
+                <li class="layer" data-depth="0.20">
+                    <div class="title">
+                        <h2>
+                            23岁倒计时
+                        </h2>
+                        <span class="line"></span>
+                    </div>
+                </li>
+
+                <li class="layer" data-depth="0.25">
+                    <div class="sphere">
+                        <img alt="sphere" src="__ASSETS__/images/sphere.png">
+                    </div>
+                </li>
+
+                <li class="layer" data-depth="0.30">
+                    <div class="hero">
+                        <h1 id="countdown">
+                            1
+                        </h1>
+
+                        <p class="sub-title">
+                            即将成为23岁
+                        </p>
+                    </div>
+                </li>
+                <!-- Flakes -->
+
+                <li class="layer" data-depth="0.40">
+                    <div class="depth-1 flake1">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth1/flakes1.png">
+                    </div>
+
+                    <div class="depth-1 flake2">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth1/flakes2.png">
+                    </div>
+
+                    <div class="depth-1 flake3">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth1/flakes3.png">
+                    </div>
+
+                    <div class="depth-1 flake4">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth1/flakes4.png">
+                    </div>
+                </li>
+
+                <li class="layer" data-depth="0.50">
+                    <div class="depth-2 flake1">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth2/flakes1.png">
+                    </div>
+
+                    <div class="depth-2 flake2">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth2/flakes2.png">
+                    </div>
+                </li>
+
+                <li class="layer" data-depth="0.60">
+                    <div class="depth-3 flake1">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth3/flakes1.png">
+                    </div>
+
+                    <div class="depth-3 flake2">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth3/flakes2.png">
+                    </div>
+
+                    <div class="depth-3 flake3">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth3/flakes3.png">
+                    </div>
+
+                    <div class="depth-3 flake4">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth3/flakes4.png">
+                    </div>
+                </li>
+
+                <li class="layer" data-depth="0.80">
+                    <div class="depth-4">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth4/flakes.png">
+                    </div>
+                </li>
+
+                <li class="layer" data-depth="1.00">
+                    <div class="depth-5">
+                        <img alt="flake" src="__ASSETS__/images/flakes/depth5/flakes.png">
+                    </div>
+                </li>
+                <!-- Contact -->
+
+                <li class="layer" data-depth="0.20">
+                    <div class="contact">
+                        <ul class="icons">
+                            <li>
+                                <a href="{:U('Index/index')}" title="去主页"><i class="fa fa-home"></i></a></li>
+                            </li>
+                            <li>
+                                <a href="{:U('Index/tpp')}" title="去看看仝朋朋"><i class="fa fa-retweet"></i></a></li>
+                            </li>
+                            
+                            <li id="qq">
+                                
+                            </li>
+                            <li id="qqk">
+                                
+                            </li>
+
+                        </ul>
+
+                        看看就行了<a href="{:U('Index/index')}">回主页</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Javascript -->
+        <script src="__ASSETS__/js/plugins.js"></script> 
+        <script src="__ASSETS__/js/jquery.countdown.min.js"></script> 
+        <script src="__ASSETS__/js/mainTime.js"></script>
+    </body>
+    <!-- qq分享单个人 -->
+    <script type="text/javascript">
+(function(){
+var p = {
+url:location.href, /*获取URL，可加上来自分享到QQ标识，方便统计*/
+desc:'', /*分享理由(风格应模拟用户对话),支持多分享语随机展现（使用|分隔）*/
+title:'', /*分享标题(可选)*/
+summary:'', /*分享摘要(可选)*/
+pics:'', /*分享图片(可选)*/
+flash: '', /*视频地址(可选)*/
+site:'', /*分享来源(可选) 如：QQ分享*/
+style:'101',
+width:96,
+height:24
+};
+var s = [];
+for(var i in p){
+s.push(i + '=' + encodeURIComponent(p[i]||''));
+}
+var link = '<a class="twitter" href="http://connect.qq.com/widget/shareqq/index.html?'+s.join('&')+' target="_blank" title="qq分享个人"><i class="fa fa-qq"></i></a>';
+$('#qq').append(link);
+})();
+</script>
+<script src="http://connect.qq.com/widget/loader/loader.js" widget="shareqq" charset="utf-8"></script>
+
+<!-- qq分享单个人 end-->
+
+<!-- qq分享空间 -->
+<script type="text/javascript">
+(function(){
+var p = {
+url:location.href,
+showcount:'1',/*是否显示分享总数,显示：'1'，不显示：'0' */
+desc:'',/*默认分享理由(可选)*/
+summary:'',/*分享摘要(可选)*/
+title:'',/*分享标题(可选)*/
+site:'',/*分享来源 如：腾讯网(可选)*/
+pics:'', /*分享图片的路径(可选)*/
+style:'203',
+width:98,
+height:22
+};
+var s = [];
+for(var i in p){
+s.push(i + '=' + encodeURIComponent(p[i]||''));
+}
+var link = '<a version="1.0" class="twitter" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?'+s.join('&')+' target="_blank" title="qq分享空间"><i class="fa fa-send"></i></a>';
+$('#qqk').append(link);
+// document.write(['<a version="1.0" class="qzOpenerDiv" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?',s.join('&'),'" target="_blank">分享</a>'].join(''));
+})();
+</script>
+<script src="http://qzonestyle.gtimg.cn/qzone/app/qzlike/qzopensl.js#jsdate=20111201" charset="utf-8"></script>
+
+<!-- qq分享空间 end -->
+</html>

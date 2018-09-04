@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>试题库</title>
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <block name="include"><include file="Base:baseLeft" /></block>
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>考卷标题：{$info.title}&nbsp;&nbsp;<small>出题者：{$info.name}</small></h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <form action="{:U('Exam/index')}" method="GET">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search for..." name="content" value="{$content}">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Go!</button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+
+              <div class="clearfix"></div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2><button type="button" class="btn btn-round btn-primary" data-toggle="modal" data-target="#addModal">添加试题</button></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>排序</th>
+                          <th>标题</th>
+                          <th>分数</th>
+                          <th>试题添加日期</th>
+                          <th>操作</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <empty name="data">
+                          <tr>
+                            <td colspan="5">无数据</td>
+                          </tr>
+                        <else/>
+                          <volist name="data" id="vo">
+                            <tr>
+                              <th scope="row">{$i}</th>
+                              <td>{$vo.title}</td>
+                              <td>{$vo.score}</td>
+                              <td>{$vo.addtime}</td>
+                              <td>
+                                <a href="{:U('Exam/getQuestion', ['eid' => $vo['id']])}" class="btn btn-round btn-default">编辑试题</a>
+                                <a href="{:U('Exam/del',['id' => $vo['id']])}" class="btn btn-round btn-danger">删除试题</a>
+                              </td>
+                            </tr>
+                          </volist>
+                        </empty>
+                      </tbody>
+                    </table>
+                    
+                    <div class="Pagination">{$show}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+    <!-- 添加考卷 start（Modal） -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+            <h4 class="modal-title">
+              添加试题
+            </h4>
+          </div>
+          <form  class="form-horizontal form-label-left" action="{:U('Exam/addQues')}" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">试题名称
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="title" required="required" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">分数
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="score" required="required" class="form-control col-md-7 col-xs-12" onkeyup="(this.v=function(){this.value=this.value.replace(/[^0-9-]+/,'');}).call(this)" onblur="this.v();">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">选项<i class="fa fa-plus-square" style="color: green;font-size:20px;" id="addOption"></i>  
+                </label>
+                
+                <div class="col-md-6 col-sm-6 col-xs-12" id="optionAllAdd">
+                  
+                  <input type="text" name="option" required="required" class="form-control col-md-7 col-xs-9" style="display: inline-block;width: 80%;">
+                  &nbsp;&nbsp;&nbsp;
+                  <input type="radio" name="answer" style="color: red;font-size:20px;padding-left:10px;">
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+              </button>
+              <button type="submit" class="btn btn-primary">添加</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 添加考卷 end -->
+
+    <!-- 编辑考卷 start（Modal） 没做-->
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>
+            <h4 class="modal-title">
+              编辑考卷
+            </h4>
+          </div>
+          <form  class="form-horizontal form-label-left" action="{:U('Exam/addExam')}" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">答卷名称
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="title" required="required" class="form-control col-md-7 col-xs-12">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">出题者模糊搜索
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <input type="text" name="search" class="form-control col-md-7 col-xs-6" style="width: 50%;margin-right: 10px;">
+                  <button class="btn btn-primary uidsearch" type="button">搜索</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">出题者
+                </label>
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                  <select name="uid" class="form-control searchData" required>
+                    <option value="0">请选择</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+              </button>
+              <button type="submit" class="btn btn-primary">添加</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- 编辑考卷 end -->
+
+    <!-- jQuery -->
+    <script src="__VENDORS__/jquery/dist/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="__VENDORS__/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="__VENDORS__/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="__VENDORS__/nprogress/nprogress.js"></script>
+    <!-- iCheck -->
+    <script src="__VENDORS__/iCheck/icheck.min.js"></script>
+
+    <script src="__ASSETS__/layer/layer/layer.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="__BUILD__/js/custom.js"></script>
+    <script type="text/javascript">
+      // 选项增加 addmodal
+      $('#addOption').click(function() {
+          html = '<input type="text" name="option[]" required="required" style="width: 80%;display:inline-block"><input type="radio" name="answer" style="color: red;font-size:20px;padding-left:10px;">&nbsp;&nbsp;&nbsp;<i class="fa fa-minus-square deltel" style="color: red;font-size:20px;padding-left:10px;"></i>';
+          $('#optionAllAdd').append(html);
+      });
+
+      // 选项栏目删除
+      $("body").delegate('.deltel', 'click', function() {
+          var that = $(this);
+          that.prev('input').prev('input').remove();
+          that.prev('input').remove();
+          that.remove();
+      });
+    </script>
+  </body>
+</html>

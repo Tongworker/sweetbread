@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>高德地图点击出坐标</title>
+    <meta charset = "UTF-8" />
+    <!-- 添加 -->
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=2b9c7706ab44c6df65a194bcb9f5b030"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" src="__ROOT__/public/js/jquery-1.8.3.js"></script>
+
+    <!-- 添加 end -->
+
+    
+</head>
+<body>
+    <!--放地图的DIV-->
+<div id="iCenter" style="width:800px; height:500px"></div>
+<div class="button-group">
+    <input type="button" class="button" value="开始动画" id="start"/>
+    <input type="button" class="button" value="停止动画" id="stop"/>
+</div>
+<h1 id="xy">{$xy}1</h1>
+
+<form action="/home/index/sub" method="post"> 
+    <input type="text" name="lon" id="real_lon">
+    <input type="text" name="lat" id="real_lat">
+    <input type="hidden" name="city_id" value="{$city_id}">
+
+    <input type="submit" value="提交"/>  
+</form>
+
+<br>
+<!--引入js-->
+<script src="http://webapi.amap.com/maps?v=1.3&key=2b9c7706ab44c6df65a194bcb9f5b030"></script>
+
+<script language="javascript">
+    xy = document.getElementById('xy').innerHTML;
+    var mapObj = new AMap.Map("iCenter",{
+        resizeEnable: true,
+        center: [116.336128, 37.439207],
+        zoom: 17
+        
+        //二维地图显示视口
+        // view: new AMap.View2D({
+        //     center:new AMap.LngLat(116.357464,37.434092),//地图中心点
+
+        //     // center:new AMap.LngLat(document.getElementById('xy').innerHTML),//地图中心点
+
+        //     zoom:15 //地图显示的缩放级别
+        // })
+    });  
+    
+    
+    mapObj.plugin(["AMap.ToolBar"],function(){     
+        toolBar = new AMap.ToolBar();
+        mapObj.addControl(toolBar); 
+        
+    });
+    
+var points='{$xy}';
+var points_arr=eval("("+points+")");
+
+point=points_arr[0].split(',')[1];
+console.log(point);
+var temp=0;
+var lnglats=[//也可以使用LngLat对象
+<php>
+    for($i=0;$i<$len;$i++){
+
+</php>
+    // point=points_arr[<php>echo $i</php>].split(',');
+
+    [Number(points_arr[<php>echo $i</php>].split(',')[1]),Number(points_arr[<php>echo $i</php>].split(',')[0])],
+<php>
+}
+</php>
+];
+
+var infoWindow = new AMap.InfoWindow();
+for(var i = 0, marker; i < lnglats.length; i++){
+    marker=new AMap.Marker({
+        position:lnglats[i],
+        map:mapObj
+    });
+    marker.content='我是第'+i+'个信息窗体的内容';
+    console.log(marker.content);
+
+    //给Marker绑定单击事件
+    // marker.on('click', markerClick);
+}
+mapObj.setFitView();
+
+mapObj.on("complete", completeEventHandler);
+    // AMap.event.addDomListener(document.getElementById('start'), 'click', function() {
+    //     marker.moveAlong(lineArr, 500);
+    // }, false);
+    // AMap.event.addDomListener(document.getElementById('stop'), 'click', function() {
+    //     marker.stopMove();
+    // }, false);
+
+    // 地图图块加载完毕后执行函数
+    function completeEventHandler() {
+        marker = new AMap.Marker({
+            map: mapObj,
+            // 
+            position: [116.394759,37.425597],
+            icon: "http://webapi.amap.com/images/car.png",
+            offset: new AMap.Pixel(-26, -13),
+            autoRotation: true
+        });
+
+
+
+
+
+
+       
+
+        var points='{$xy}';
+        
+        var points_arr=eval("("+points+")");
+    
+        <php>
+            for($i=0;$i<$len;$i++){
+        </php>
+            lineArr.push([
+                points_arr[<php>echo $i</php>].split(',')[1],points_arr[<php>echo $i</php>].split(',')[0]
+            
+            ]);
+        <php>
+        }
+        </php>
+        // 绘制轨迹
+        var polyline = new AMap.Polyline({
+            map: mapObj,
+            path: lineArr,
+            strokeColor: "#00A",  //线颜色
+            strokeOpacity: 1,     //线透明度
+            strokeWeight: 3,      //线宽
+            strokeStyle: "solid"  //线样式
+        });
+        mapObj.setFitView();
+    }
+</script>
+<script>
+    var marker, lineArr = [];
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: [116.397428, 39.90923],
+        zoom: 17
+    });
+    map.on("complete", completeEventHandler);
+    AMap.event.addDomListener(document.getElementById('start'), 'click', function() {
+        marker.moveAlong(lineArr, 500);
+    }, false);
+    AMap.event.addDomListener(document.getElementById('stop'), 'click', function() {
+        marker.stopMove();
+    }, false);
+
+    // 地图图块加载完毕后执行函数
+    function completeEventHandler() {
+        marker = new AMap.Marker({
+            map: map,
+            // 
+            // position: [116.394759,37.425597],
+            // icon: "http://webapi.amap.com/images/car.png",
+            // offset: new AMap.Pixel(-26, -13),
+            // autoRotation: true
+        });
+        var points='{$xy}';
+        var points_arr=eval("("+points+")");
+    
+        <php>
+            for($i=0;$i<$len;$i++){
+        </php>
+            lineArr.push([
+                points_arr[<php>echo $i</php>].split(',')[1],points_arr[<php>echo $i</php>].split(',')[0]
+            
+            ]);
+        <php>
+        }
+        </php>
+        // 绘制轨迹
+        var polyline = new AMap.Polyline({
+            map: map,
+            path: lineArr,
+            strokeColor: "#00A",  //线颜色
+            strokeOpacity: 1,     //线透明度
+            strokeWeight: 3,      //线宽
+            strokeStyle: "solid"  //线样式
+        });
+        map.setFitView();
+    }
+
+</script>
+</body>
+</html>
